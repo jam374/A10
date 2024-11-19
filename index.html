@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        footer {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cookie Example</h1>
+        <p id="cookie-message">Welcome! Set your name to save it as a cookie.</p>
+        <input type="text" id="user-name" placeholder="Enter your name" />
+        <button onclick="setCookie()">Set Cookie</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Jayden McRae. Assignment Due Date: November 18, 2024</p>
+    </footer>
+
+    <script>
+        // Function to set a cookie
+        function setCookie() {
+            const userName = document.getElementById("user-name").value;
+            if (userName) {
+                document.cookie = `name=${userName}; path=/; max-age=3600`; // Cookie expires in 1 hour
+                alert("Cookie set successfully!");
+                displayCookie();
+            } else {
+                alert("Please enter a name.");
+            }
+        }
+
+        // Function to get a cookie value by name
+        function getCookie(name) {
+            const cookies = document.cookie.split("; ");
+            for (let cookie of cookies) {
+                const [key, value] = cookie.split("=");
+                if (key === name) {
+                    return value;
+                }
+            }
+            return null;
+        }
+
+        // Function to display the cookie
+        function displayCookie() {
+            const userName = getCookie("name");
+            const message = userName 
+                ? `Welcome back, ${userName}!` 
+                : "Welcome! Set your name to save it as a cookie.";
+            document.getElementById("cookie-message").textContent = message;
+        }
+
+        // Display the cookie when the page loads
+        window.onload = displayCookie;
+    </script>
+</body>
+</html>
